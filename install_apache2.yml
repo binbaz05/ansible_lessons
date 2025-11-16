@@ -1,0 +1,10 @@
+---
+
+- hosts: 10.0.2.5
+  become: yes
+  tasks:
+
+  - name: Install apache2 server package
+    ansible.builtin.apt:
+      name:
+       - "apache2"

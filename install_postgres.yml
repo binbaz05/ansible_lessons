@@ -1,0 +1,22 @@
+---
+
+- hosts: 10.0.2.4
+  become: true
+  vars:
+    pg_version: "16"
+
+  tasks:
+
+    - name: Install PostgreSQL database server and client packages
+      ansible.builtin.apt:
+        name: 
+          - "postgresql-{{ pg_version }}"
+          - "postgresql-contrib-{{ pg_version }}"
+          - "python3-psycopg2"
+        state: present
+
+    - name: Ensure PostgreSQL is runnning and enabled at boot
+      ansible.builtin.systemd_service:
+        name: "postgresql"
+        state: started
+        enabled: yes
